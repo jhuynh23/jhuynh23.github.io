@@ -2,27 +2,87 @@ User Story / Gameplay
 
 1. Describe the gameplay.
 
-Pong is a two-player game in which each player has an interactive paddle placed at the opposite ends of the screen.
-A ball is hit back-and-forth between the two players until a player misses, losing the point.
+    Pong is a two-player game in which each player has an interactive paddle placed at the opposite ends of the screen.
+    A ball is hit back-and-forth between the two players until a player misses, losing the point.
 
 2. What are the conditions when the game begins?
 
-A player has to click the screen to start the game. Once the player clicks, the ball will randomly float from the center 
-to a paddle (at random).
+    The game autostarts. 
+
+    Optional: A player has to click the screen to start the game. Once the player clicks, the ball will randomly
+    float from the center towards a player's paddle (at random).
 
 3. Does the game have an end? If so, what are the conditions for when it ends?
-What ifs will there be?
-Visual Game Components:
-What are the visual game components? For example, in Bouncing Box, the game components were the board and the box.
-Which will be static? (the board)
-Which will be animated? (the box)
-What data will you need to manage each game component? For example, in Bouncing Box, the data values were positionX, speedX, and points.
-Events / Logic
-What events will occur in this game? (timer events, keyboard events, clicking events?)
-How do those events affect the data of the program?
-For each "event", write out the high-level logic of what will happen. It is better (and tricky) to be as specific as you can while remaining high-level!
-For example: in bouncing box, when the box is clicked:
 
-The speed is increased
-The point total goes up by 1 and is displayed on the box
-The position of the box is reset to 0
+    Yes, the game will end when one player reaches 11 points.
+
+4. What "if"s will there be?
+
+    If the ball's position hits x = 0, then Player2's (paddle on right) score will increase by one, and the ball's 
+    position will be reset at the middle dotted line. 
+
+    If the ball's position hits x = board.length, then Player1's (paddle on left) will increase by one, and the ball's 
+    position will be at the middle dotted line.
+
+    If the ball hits a player's paddle, the ball's speedX will be multiplied by -1.
+
+    If the ball hits either the top or bottom wall, the ball's speedY will be multiplied by -1.
+
+Visual Game Components:
+
+1. What are the visual game components? For example, in Bouncing Box, the game components were the board and the box.
+
+    The visual game components are going to be the board, the dotted middle line, the players' paddles, and the ball.
+
+2. Which will be static? (the board)
+
+    The board and dotted middle line will be static.
+
+3. Which will be animated? (the box)
+
+    The ball and players' paddles will be animated.
+
+4. What data will you need to manage each game component? For example, in Bouncing Box, the data values were positionX, speedX, and points.
+
+    For now, I think I'll need to have the points, ballPositionX, ballPositionY, ballSpeedX, ballSpeedY, leftpaddlePositionX (static?),
+    rightpaddlePositionX (static?), rightpaddlePositionY, leftpaddlePositionY, dottedlinePositionX and points (board.length, board,width). 
+
+Events / Logic
+
+1. What events will occur in this game? (timer events, keyboard events, clicking events?)
+
+    a) Optional: When a player clicks the screen, the ball will start moving.
+
+    b) Every time the ball is deflected by a paddle, the ball will begin to move faster (although I'm not sure yet by how much
+       or maybe it should just move faster based on time?).
+
+    c) Clicking the "W" will result in leftpaddlePositionY increasing by 5.
+       Clicking the "S" will result in leftpaddlePositionY decreasing by 5.    
+       Clicking the "I" will result in rightpaddlePositionY increasing by 5.
+       Clicking the "J" will result in rightpaddlePositionY decreasing by 5.
+    ^ assuming that this is played on the same computer (like the Fireboy and Watergirl maze game)
+
+2. How do those events affect the data of the program?
+
+    a) Optional: Clicking the screen at the start of the game will cause the ball's speedX and speedY to change.
+
+    b) The ball-paddle collision will cause the ball's speedX and speedY to increase.
+
+    c) ^ answered in the above question
+
+
+3. For each "event", write out the high-level logic of what will happen. It is better (and tricky) to be as specific as you can while remaining high-level!
+For example: in bouncing box, when the box is clicked:
+->The speed is increased
+->The point total goes up by 1 and is displayed on the box
+->The position of the box is reset to 0
+
+    a) Click anywhere on screen
+        -> ballSpeedX = 5 *have to figure out a way to randomize whether it's -5 or 5*
+        -> ballSpeedY = 5 *^^^*
+
+    b) Ball collides with paddle
+        -> ballSpeedX * -1
+        -> *need to figure out a way to make the ballSpeedY's direction matches the direction that the paddle is pushed towards*
+
+    c) **^answer in question 1**
