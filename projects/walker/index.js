@@ -15,17 +15,18 @@ function runProgram(){
         "RIGHT": 39,
         "UP": 38,
         "DOWN": 40
-    };
-  
-  
-  
+    }; //assigning names to the values of the arrow keys; getting rid of magic #s
+
+  var boardWidth = $("#board").width(); 
+  var boardHeight = $("#board").height();
+
+
   // Game Item Objects
 
   var positionX = 0;
   var positionY = 0;
   var speedX = 0;
   var speedY = 0;
-
 
   // one-time setup
   var interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
@@ -42,8 +43,32 @@ function runProgram(){
   */
 
   function newFrame() { //calls repositionGameItem and redrawGameItem in order to update the position of the box every 0.0166 seconds
-    repositionGameItem(); //will change the position of the box, checking for changes in speedX/speedY (which are in response to 'keydown' events)
-    redrawGameItem(); //will actually update the new positions from repositionGameItem to the CSS which will appear in the game
+    
+    //will change the position of the box, checking for changes in speedX/speedY (which are in response to 'keydown' events)
+    repositionGameItem();
+
+    // STOPS THE BOX FROM GOING OUTSIDE OF THE BOUNDARIES
+    if (positionX > boardWidth){
+        speedX - 5;
+        return speedX;
+    }
+    else if (positionX < 0){
+        speedX + 5;
+        return speedX; 
+    }
+
+    if (positionY > boardHeight){
+        speedY - 5;
+        return speedY;
+    }
+    else if (positionY < 0){
+        speedY + 5;
+        return speedY;
+    }
+
+    //updates the new positions from repositionGameItem to the CSS which will appear ingame    
+    redrawGameItem(); 
+
   }
   
   /* 
@@ -72,6 +97,7 @@ function runProgram(){
         console.log("down pressed");
         speedY = 5; //when the down arrow key is pressed, speedY will be 5 (useful later for changing the positionY)
     } //speedY is negative for KEY.UP because the position is set relative to the top, not the bottom
+
   }
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -81,8 +107,10 @@ function runProgram(){
   function repositionGameItem(){
     positionX += speedX;
     // changes the X position depending on what speedX is (speedX is determined by which key is pressed (see function handleKeyDown))
+
     positionY += speedY;  
     // changes the Y position depending on what speedY is (speedY is determined by which key is pressed (see function handleKeyDown))
+    
   }
 
   function redrawGameItem(){ //(will be called in function newFrame to update the position of the box every 0.0166 seconds)
