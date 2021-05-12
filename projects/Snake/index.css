@@ -1,0 +1,43 @@
+body {
+  background-color: darkgreen;
+}
+
+#board {
+  width: 440px;
+  height: 440px;
+  border: 1px solid white;
+  background-color: black;
+  position: relative;
+}
+
+.snake, #apple {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  user-select: none;
+}
+
+.snake {
+  background-color: green;
+  
+}
+
+#snake-head {
+  background-color: darkgreen;
+  width: 20px;
+  height: 20px;
+  border: 1px solid white;
+
+  position: absolute;
+  top: 200px;
+  left: 200px;
+}
+
+#apple {
+  background-color: red;
+}
+
+h1 {
+  color: white;
+}
+

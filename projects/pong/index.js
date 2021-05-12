@@ -43,10 +43,10 @@ var ball = gameObject("#ball");
 var board = gameObject("#board");
 var leftpaddleScoreBox = gameObject("#leftpaddleScoreBox");
 var rightpaddleScoreBox = gameObject("#rightpaddleScoreBox");
-var obj1Score = 0;
-var obj2Score = 0;
+
 var ballStartingX = 325;
 var ballStartingY = 200;
+var scoreDecider;
 //   var ballPositionX;
 //   var ballPositionY;
 //   var ballSpeedX;
@@ -87,27 +87,36 @@ var ballStartingY = 200;
     var leftpaddleBottomY = leftpaddle.y + leftpaddle.height; //finds the value of left paddle's bottom border
         //// PADDLE-WALL COLLISIONS ////////
 
-        if (rightpaddle.y < 0){ //stops the right paddle from crossing to top border
+        if (rightpaddle.y <= 0){ //stops the right paddle from crossing to top border
             rightpaddle.speedY = 0;
             return rightpaddle.speedY;
         }
         
-        else if (rightpaddleBottomY > board.height){ //stops the right paddle from crossing the bottom border
+        else if (rightpaddleBottomY >= board.height){ //stops the right paddle from crossing the bottom border
             rightpaddle.speedY = 0;
             return rightpaddle.speedY;
         }
 
-        else if (leftpaddle.y < 0){ //stops the left paddle from crossing to top border
+        else if (leftpaddle.y <= 0){ //stops the left paddle from crossing to top border
             leftpaddle.speedY = 0;
             return leftpaddle.speedY;
         }
-        else if (leftpaddleBottomY > board.height){ //stops the left paddle from crossing to bottom border
+        else if (leftpaddleBottomY >= board.height){ //stops the left paddle from crossing to bottom border
             leftpaddle.speedY = 0;
             return leftpaddle.speedY;
         }
 
     redrawPaddle(); // redraws the objects in their new positions
     stopBall();
+
+    if (doCollide(leftpaddle, ball)){
+        ball.speedX * -1;
+    };
+
+    if (doCollide(rightpaddle, ball)){
+        ball.speedX * -1;
+    }
+    
     displayScore(leftpaddleScoreBox, rightpaddleScoreBox);
 
   }
@@ -162,9 +171,20 @@ var ballStartingY = 200;
   }
 
   function handleKeyUp (event) {
-    rightpaddle.speedY = 0;
-    leftpaddle.speedY = 0;
-  }
+    if (event.which === KEY.UP) { 
+        rightpaddle.speedY = 0; 
+    }
+    else if (event.which === KEY.DOWN) {
+        rightpaddle.speedY = 0;
+    }
+
+    else if (event.which === KEY.W) { 
+        leftpaddle.speedY = 0;
+    }
+
+    else if (event.which === KEY.S) {
+        leftpaddle.speedY = 0;
+  }}
 
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
@@ -212,12 +232,12 @@ var ballStartingY = 200;
 
     if (ball.y < 0){ //stops the ball from crossing to top border
         ball.speedY = ball.speedY * -1;
-        return ball.speedY;
+        // return ball.speedY;
         }
         
     else if (ballBottomY > board.height){ //stops the ball from crossing the bottom border
         ball.speedY = ball.speedY * -1;
-        return ball.speedY;
+        // return ball.speedY;
         }
         //// BALL-WALL COLLISIONS (scoring)////////
     else if (ball.x < 0){ //when the ball crosses the left side of the board, it will return ot its starting position
@@ -225,26 +245,26 @@ var ballStartingY = 200;
         ball.speedX = 0;
         ball.y = ballStartingY;
         ball.x = ballStartingX;
-        return ball.y;
-        return ball.x;
-        return ball.speedY;
-        return ball.speedX;
-        return true;
+        // return ball.y;
+        // return ball.x;
+        // return ball.speedY;
+        // return ball.speedX;
+
     }
     else if (ballRightX > board.width){ //when the ball crosses the right side of the board, it will return to its starting position
         ball.speedY = 0;
         ball.speedX = 0;
         ball.y = ballStartingY;
         ball.x = ballStartingX;
-        return ball.y;
-        return ball.x;
-        return ball.speedY;
-        return ball.speedX;
-        return false;
+        // return ball.y;
+        // return ball.x;
+        // return ball.speedY;
+        // return ball.speedX;
+
     }
   }
 
-function doCollide(stick, pongpong) {
+function doCollide(stick, pongpong) { //changes the ball's speedX when it collides with the stick
     //sides of square1
     stick.leftX = stick.x;
     stick.topY = stick.y;
@@ -258,31 +278,40 @@ function doCollide(stick, pongpong) {
     pongpong.bottomY = pongpong.y + pongpong.height;
 
   
-    if ((stick.leftX < stick.rightX) && 
-        (stick.rightX > stick.leftX) && 
-        (stick.topY < stick.bottomY) && 
-        (stick.bottomY > stick.topY)) {
-      return true;
+    if ((pongpong.leftX < stick.rightX) && 
+        (pongpong.rightX > stick.leftX) && 
+        (pongpong.topY < stick.bottomY) && 
+        (pongpong.bottomY > stick.topY)) {
+            return true;
     }
-    // TODO: Return true if they are overlapping, false otherwise
+
     else {
-      return false;
+        return false;
     }
 		
 }
 
-  function displayScore(obj1, obj2){ //displays the score...duh
+  function displayScore(obj1, obj2){ //displays the... score....
 
+    var ballRightX = ball.x + ball.width;
     var endGameScore = 11; //the score to end the game at is 11
+    
+    
 
-    if (stopBall() === false){
+    if (ball.x <= 0){
+        var obj2Score = 0;
         // for(l = 0; l <= endGameScore; l++){
-            $(obj1.id).append($("<p>").text("score:" + obj2Score++));
-        
+            // $(obj1.id).append($("<p>").text("score:" + obj2Score++));
+            return obj2Score++;
+            console.log (obj2Score);
+        // }
     }
-    else if (stopBall() === true){
+    else if (ballRightX >= board.width){
+        var obj1Score = 0;
         // for(r = 0; r <= endGameScore; r++){
-            $(obj2.id).append($("<p>").text(obj1Score++));
+            // $(obj2.id).append($("<p>").text(obj1Score++));
+            return obj1Score++;
+            console.log (obj1Score);
         
     }
   }
@@ -297,10 +326,10 @@ function doCollide(stick, pongpong) {
 
     var chanceX = rollDice(2); //rollDice(2) to pick a side because i'm lazy
     if ((chanceX % 2)=== 0){//if chance is even, the ball goes to the left
-        ball.speedX = -5;
+        ball.speedX = -3;
     }
     else if ((chanceX % 2) === 1){ //if chance is not even, the ball goes to the right
-        ball.speedX = 5;
+        ball.speedX = 3;
     };
 
     ////// WHICH WAY WILL THE BALL GO VERTICALLY //////////
@@ -308,10 +337,10 @@ function doCollide(stick, pongpong) {
     var chanceY = rollDice(2); //rollDice(2) to pick a side because i'm lazy
     
     if ((chanceY % 2) === 0){//if chance is even, the ball goes to the left
-        ball.speedY = -5;
+        ball.speedY = -3;
     }
     else if ((chanceY % 2) === 1){ //if chance is not even, the ball goes to the right
-        ball.speedY = 5;
+        ball.speedY = 3;
     };
   }
 

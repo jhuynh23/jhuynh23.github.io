@@ -35,9 +35,9 @@ $(document).ready(function(){
     var whiteBackgroundRgbCode = 150;
         for (var r = 0; r < image.length; r++) {
             for (var c = 0; c < image[r].length; c++) {
-                var rgbString = image[r][c];
+                var rgbString = image[r][c]; //pulls out the color string
                 var rgbNumbers = rgbStringToArray(rgbString);
-                if (rgbNumbers[RED] === whiteBackgroundRgbCode &&
+                if (rgbNumbers[RED] === whiteBackgroundRgbCode && //removes filter on the background
                     rgbNumbers[BLUE] === whiteBackgroundRgbCode &&
                     rgbNumbers[GREEN] === whiteBackgroundRgbCode){
                        rgbString = rgbArrayToString(rgbNumbers);  
