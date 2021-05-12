@@ -58,13 +58,5 @@ $(document).ready(function(){
         array[RED] = 225; //makes the entire picture really red
     }
 
-    function decreaseBlue(array){
-        array[BLUE] = array[BLUE] - 30; //makes the pixel less blue
-        Math.max(array[BLUE], 0); //makes sure array[BLUE] doesn't dip under 0
-    }
 
-    function increaseGreenByBlue(array){
-        array[GREEN] =  array[GREEN] + array[BLUE]; //makes the pixel an ungodly amount of green
-        Math.min(array[GREEN], 255); //makes sure array[GREEN] doesn't go over 255
-    }
 // CHALLENGE code goes below here

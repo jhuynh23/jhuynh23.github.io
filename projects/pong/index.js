@@ -89,21 +89,21 @@ var scoreDecider;
 
         if (rightpaddle.y <= 0){ //stops the right paddle from crossing to top border
             rightpaddle.speedY = 0;
-            return rightpaddle.speedY;
+            // return rightpaddle.speedY;
         }
         
         else if (rightpaddleBottomY >= board.height){ //stops the right paddle from crossing the bottom border
             rightpaddle.speedY = 0;
-            return rightpaddle.speedY;
+            // return rightpaddle.speedY;
         }
 
         else if (leftpaddle.y <= 0){ //stops the left paddle from crossing to top border
             leftpaddle.speedY = 0;
-            return leftpaddle.speedY;
+            // return leftpaddle.speedY;
         }
         else if (leftpaddleBottomY >= board.height){ //stops the left paddle from crossing to bottom border
             leftpaddle.speedY = 0;
-            return leftpaddle.speedY;
+            // return leftpaddle.speedY;
         }
 
     redrawPaddle(); // redraws the objects in their new positions
