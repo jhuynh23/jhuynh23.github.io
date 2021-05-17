@@ -89,21 +89,21 @@ var scoreDecider;
 
         if (rightpaddle.y <= 0){ //stops the right paddle from crossing to top border
             rightpaddle.speedY = 0;
-            // return rightpaddle.speedY;
+            return rightpaddle.speedY;
         }
         
         else if (rightpaddleBottomY >= board.height){ //stops the right paddle from crossing the bottom border
             rightpaddle.speedY = 0;
-            // return rightpaddle.speedY;
+            return rightpaddle.speedY;
         }
 
         else if (leftpaddle.y <= 0){ //stops the left paddle from crossing to top border
             leftpaddle.speedY = 0;
-            // return leftpaddle.speedY;
+            return leftpaddle.speedY;
         }
         else if (leftpaddleBottomY >= board.height){ //stops the left paddle from crossing to bottom border
             leftpaddle.speedY = 0;
-            // return leftpaddle.speedY;
+            return leftpaddle.speedY;
         }
 
     redrawPaddle(); // redraws the objects in their new positions
@@ -111,10 +111,12 @@ var scoreDecider;
 
     if (doCollide(leftpaddle, ball)){
         ball.speedX * -1;
+        return ball.speedX;
     };
 
     if (doCollide(rightpaddle, ball)){
         ball.speedX * -1;
+        return ball.speedX;
     }
     
     displayScore(leftpaddleScoreBox, rightpaddleScoreBox);
@@ -135,24 +137,9 @@ var scoreDecider;
 
     pickSides(); //gets the ball to move at the start of the game randomly
 
-    // //// BALL-WALL COLLISIONS ////////
-    // var ballBottomY = ball.y + ball.height; //finds the value of right paddle's bottom border
+  }
 
-    // if (ball.y < 0){ //stops the ball from crossing to top border
-    //     ball.speedY = 0;
-    //     ball.speedX = 0;
-    //     return ball.speedY;
-    //     return ball.speedX;
-    //     }
-        
-    // else if (ball.y > board.height){ //stops the ball from crossing the bottom border
-    //     ball.speedY = 0;
-    //     ball.speedX = 0;
-    //     return ball.speedY;
-    //     return ball.speedX;
-    //     }
- }
-
+  
   function handleKeyDown(event) { //called in response to a keyDown event//
     if (event.which === KEY.UP) { //when the up arrow key is pressed, the right paddle's speedY will be 5. this causes the rightpaddle to go up.
         rightpaddle.speedY = -5; 
@@ -184,7 +171,8 @@ var scoreDecider;
 
     else if (event.which === KEY.S) {
         leftpaddle.speedY = 0;
-  }}
+    }
+}
 
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////

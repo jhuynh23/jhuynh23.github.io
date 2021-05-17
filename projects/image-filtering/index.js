@@ -44,6 +44,7 @@ $(document).ready(function(){
                        image[r][c] = rgbString;                       
                 }
                 else{
+                        console.log("filter ran");
                         filterFunction(rgbNumbers);
                         rgbString = rgbArrayToString(rgbNumbers);
                         image[r][c] = rgbString;
