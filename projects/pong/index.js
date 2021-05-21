@@ -89,21 +89,18 @@ var scoreDecider;
 
         if (rightpaddle.y <= 0){ //stops the right paddle from crossing to top border
             rightpaddle.speedY = 0;
-            return rightpaddle.speedY;
+
         }
         
         else if (rightpaddleBottomY >= board.height){ //stops the right paddle from crossing the bottom border
             rightpaddle.speedY = 0;
-            return rightpaddle.speedY;
         }
 
         else if (leftpaddle.y <= 0){ //stops the left paddle from crossing to top border
             leftpaddle.speedY = 0;
-            return leftpaddle.speedY;
         }
         else if (leftpaddleBottomY >= board.height){ //stops the left paddle from crossing to bottom border
             leftpaddle.speedY = 0;
-            return leftpaddle.speedY;
         }
 
     redrawPaddle(); // redraws the objects in their new positions
@@ -111,12 +108,10 @@ var scoreDecider;
 
     if (doCollide(leftpaddle, ball)){
         ball.speedX * -1;
-        return ball.speedX;
     };
 
     if (doCollide(rightpaddle, ball)){
         ball.speedX * -1;
-        return ball.speedX;
     }
     
     displayScore();
@@ -220,12 +215,10 @@ var scoreDecider;
 
     if (ball.y < 0){ //stops the ball from crossing to top border
         ball.speedY = ball.speedY * -1;
-        return ball.speedY;
         }
         
     else if (ballBottomY > board.height){ //stops the ball from crossing the bottom border
         ball.speedY = ball.speedY * -1;
-        return ball.speedY;
         }
         //// BALL-WALL COLLISIONS (scoring)////////
     else if (ball.x < 0){ //when the ball crosses the left side of the board, it will return ot its starting position
@@ -233,10 +226,6 @@ var scoreDecider;
         ball.speedX = 0;
         ball.y = ballStartingY; //resets ball to starting position
         ball.x = ballStartingX;
-        return ball.y;
-        return ball.x;
-        return ball.speedY;
-        return ball.speedX;
 
     }
     else if (ballRightX > board.width){ //when the ball crosses the right side of the board, it will return to its starting position
@@ -244,10 +233,6 @@ var scoreDecider;
         ball.speedX = 0;
         ball.y = ballStartingY; //resets ball to starting position
         ball.x = ballStartingX;
-        return ball.y;
-        return ball.x;
-        return ball.speedY;
-        return ball.speedX;
 
     }
   }
@@ -291,7 +276,6 @@ function doCollide(stick, pongpong) { //changes the ball's speedX when it collid
         // for(l = 0; l <= endGameScore; l++){
             // $(obj1.id).append($("<p>").text("score:" + obj2Score++));
             obj2Score++;
-            return obj2Score;
             console.log (obj2Score);
         // }
     }
@@ -300,7 +284,6 @@ function doCollide(stick, pongpong) { //changes the ball's speedX when it collid
         // for(r = 0; r <= endGameScore; r++){
             // $(obj2.id).append($("<p>").text(obj1Score++));
             obj1Score++;
-            return obj1Score;
             console.log (obj1Score);
         
     }
