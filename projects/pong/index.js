@@ -106,13 +106,13 @@ var scoreDecider;
     redrawPaddle(); // redraws the objects in their new positions
     stopBall();
 
-    if (doCollide(leftpaddle, ball)){
-        ball.speedX * -1;
-    };
+        if (doCollide(leftpaddle, ball)){
+            ball.speedX * -1;
+        };
 
-    if (doCollide(rightpaddle, ball)){
-        ball.speedX * -1;
-    }
+        if (doCollide(rightpaddle, ball)){
+            ball.speedX * -1;
+        }
     
     displayScore();
 
