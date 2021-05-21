@@ -88,31 +88,31 @@ var scoreDecider;
         //// PADDLE-WALL COLLISIONS ////////
 
         if (rightpaddle.y <= 0){ //stops the right paddle from crossing to top border
-            rightpaddle.speedY = 0;
-
+            rightpaddle.y = rightpaddle.y - rightpaddle.speedY;
         }
         
         else if (rightpaddleBottomY >= board.height){ //stops the right paddle from crossing the bottom border
-            rightpaddle.speedY = 0;
+            rightpaddle.y = rightpaddle.y - rightpaddle.speedY;
         }
 
         else if (leftpaddle.y <= 0){ //stops the left paddle from crossing to top border
-            leftpaddle.speedY = 0;
+            leftpaddle.y = leftpaddle.y - leftpaddle.speedY;
         }
         else if (leftpaddleBottomY >= board.height){ //stops the left paddle from crossing to bottom border
-            leftpaddle.speedY = 0;
+            leftpaddle.y = leftpaddle.y - leftpaddle.speedY;
+        }
+
+        //if doCollide, ball returns in the opposite direction
+        if (doCollide(leftpaddle, ball)){
+            ball.speedX = ball.speedX * -1;
+        };
+
+        if (doCollide(rightpaddle, ball)){
+            ball.speedX = ball.speedX * -1;
         }
 
     redrawPaddle(); // redraws the objects in their new positions
     stopBall();
-
-        if (doCollide(leftpaddle, ball)){
-            ball.speedX * -1;
-        };
-
-        if (doCollide(rightpaddle, ball)){
-            ball.speedX * -1;
-        }
     
     displayScore();
 
