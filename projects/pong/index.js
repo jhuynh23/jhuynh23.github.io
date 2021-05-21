@@ -119,7 +119,7 @@ var scoreDecider;
         return ball.speedX;
     }
     
-    displayScore(leftpaddleScoreBox, rightpaddleScoreBox);
+    displayScore();
 
   }
   
@@ -139,7 +139,7 @@ var scoreDecider;
 
   }
 
-  
+
   function handleKeyDown(event) { //called in response to a keyDown event//
     if (event.which === KEY.UP) { //when the up arrow key is pressed, the right paddle's speedY will be 5. this causes the rightpaddle to go up.
         rightpaddle.speedY = -5; 
@@ -220,34 +220,34 @@ var scoreDecider;
 
     if (ball.y < 0){ //stops the ball from crossing to top border
         ball.speedY = ball.speedY * -1;
-        // return ball.speedY;
+        return ball.speedY;
         }
         
     else if (ballBottomY > board.height){ //stops the ball from crossing the bottom border
         ball.speedY = ball.speedY * -1;
-        // return ball.speedY;
+        return ball.speedY;
         }
         //// BALL-WALL COLLISIONS (scoring)////////
     else if (ball.x < 0){ //when the ball crosses the left side of the board, it will return ot its starting position
         ball.speedY = 0;
         ball.speedX = 0;
-        ball.y = ballStartingY;
+        ball.y = ballStartingY; //resets ball to starting position
         ball.x = ballStartingX;
-        // return ball.y;
-        // return ball.x;
-        // return ball.speedY;
-        // return ball.speedX;
+        return ball.y;
+        return ball.x;
+        return ball.speedY;
+        return ball.speedX;
 
     }
     else if (ballRightX > board.width){ //when the ball crosses the right side of the board, it will return to its starting position
         ball.speedY = 0;
         ball.speedX = 0;
-        ball.y = ballStartingY;
+        ball.y = ballStartingY; //resets ball to starting position
         ball.x = ballStartingX;
-        // return ball.y;
-        // return ball.x;
-        // return ball.speedY;
-        // return ball.speedX;
+        return ball.y;
+        return ball.x;
+        return ball.speedY;
+        return ball.speedX;
 
     }
   }
@@ -279,7 +279,7 @@ function doCollide(stick, pongpong) { //changes the ball's speedX when it collid
 		
 }
 
-  function displayScore(obj1, obj2){ //displays the... score....
+  function displayScore(){ //displays the... score....
 
     var ballRightX = ball.x + ball.width;
     var endGameScore = 11; //the score to end the game at is 11
@@ -290,7 +290,8 @@ function doCollide(stick, pongpong) { //changes the ball's speedX when it collid
         var obj2Score = 0;
         // for(l = 0; l <= endGameScore; l++){
             // $(obj1.id).append($("<p>").text("score:" + obj2Score++));
-            return obj2Score++;
+            obj2Score++;
+            return obj2Score;
             console.log (obj2Score);
         // }
     }
@@ -298,11 +299,13 @@ function doCollide(stick, pongpong) { //changes the ball's speedX when it collid
         var obj1Score = 0;
         // for(r = 0; r <= endGameScore; r++){
             // $(obj2.id).append($("<p>").text(obj1Score++));
-            return obj1Score++;
+            obj1Score++;
+            return obj1Score;
             console.log (obj1Score);
         
     }
   }
+
   function rollDice(number) {	//creates a random number to be used in pick sides
     var side = Math.ceil(Math.random() * number);
     return side;
